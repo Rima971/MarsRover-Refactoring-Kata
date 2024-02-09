@@ -9,15 +9,21 @@ class MarsRoverTest {
     @Test
     public void
     acceptance_test_1() {
-        String newPosition = MarsRover.move(1, 2, 'N', "LMLMLMLMM");
-        assertEquals("1 3 N", newPosition);
+        MarsRover marsRover = new MarsRover(1, 2, 'N');
+        marsRover.move("LMLMLMLMM");
+        assertEquals(1, marsRover.getX());
+        assertEquals(3, marsRover.getY());
+        assertEquals('N', marsRover.getDirection());
     }
 
     @Test
     public void
     acceptance_test_2() {
-        String newPosition = MarsRover.move(3, 3, 'E', "MMRMMRMRRM");
-        assertEquals("5 1 E", newPosition);
+        MarsRover marsRover = new MarsRover(3,3, 'E');
+        marsRover.move("MMRMMRMRRM");
+        assertEquals(5, marsRover.getX());
+        assertEquals(1, marsRover.getY());
+        assertEquals('E', marsRover.getDirection());
     }
 
 }
