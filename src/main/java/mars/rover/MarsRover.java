@@ -22,7 +22,6 @@ public class MarsRover {
                     break;
                 case MarsRover.FORWARD:
                     this.moveForward();
-                    break;
             }
 
             this.move(instructions.substring(1));
