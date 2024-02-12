@@ -1,13 +1,13 @@
 package mars.rover;
 
 public class MarsRover {
-    private static final char NORTH = 'N', SOUTH = 'S', WEST = 'W', EAST = 'E', LEFT = 'L', RIGHT = 'R', FORWARD = 'M';
+    private static final char LEFT = 'L', RIGHT = 'R', FORWARD = 'M', NORTH = 'N', SOUTH = 'S', EAST = 'E', WEST = 'W';
+    private Rotator rotator;
     private int x, y;
-    private char direction;
     public MarsRover(int initialX, int initialY, char initialDirection){
         this.x = initialX;
         this.y = initialY;
-        this.direction = initialDirection;
+        this.rotator = new Rotator(initialDirection);
     }
     public void move(String instructions) {
         if (!instructions.isEmpty()) {
@@ -15,10 +15,10 @@ public class MarsRover {
 
             switch (instruction){
                 case MarsRover.LEFT:
-                    this.moveLeft();
+                    this.rotateLeft();
                     break;
                 case MarsRover.RIGHT:
-                    this.moveRight();
+                    this.rotateRight();
                     break;
                 case MarsRover.FORWARD:
                     this.moveForward();
@@ -38,43 +38,19 @@ public class MarsRover {
     }
 
     public int getDirection(){
-        return this.direction;
+        return this.rotator.getDirection();
     }
 
-    private void moveLeft(){
-        switch (this.direction){
-            case MarsRover.NORTH:
-                this.direction = MarsRover.WEST;
-                break;
-            case MarsRover.WEST:
-                this.direction = MarsRover.SOUTH;
-                break;
-            case MarsRover.SOUTH:
-                this.direction = MarsRover.EAST;
-                break;
-            case MarsRover.EAST:
-                this.direction = MarsRover.NORTH;
-        }
+    private void rotateLeft(){
+        rotator.rotateAntiClockwise();
     }
 
-    private void moveRight(){
-        switch (this.direction){
-            case MarsRover.NORTH:
-                this.direction = MarsRover.EAST;
-                break;
-            case MarsRover.WEST:
-                this.direction = MarsRover.NORTH;
-                break;
-            case MarsRover.SOUTH:
-                this.direction = MarsRover.WEST;
-                break;
-            case MarsRover.EAST:
-                this.direction = MarsRover.SOUTH;
-        }
+    private void rotateRight(){
+        rotator.rotateClockwise();
     }
 
     private void moveForward(){
-        switch (this.direction){
+        switch (this.rotator.getDirection()){
             case MarsRover.NORTH:
                 this.y++;
                 break;
